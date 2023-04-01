@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/vatsal-git/GreedyGameAssignment/static/css/main.a01da486.css",
+    "main.js": "/vatsal-git/GreedyGameAssignment/static/js/main.8c7832cd.js",
+    "static/js/787.28cb0dcd.chunk.js": "/vatsal-git/GreedyGameAssignment/static/js/787.28cb0dcd.chunk.js",
+    "index.html": "/vatsal-git/GreedyGameAssignment/index.html",
+    "main.a01da486.css.map": "/vatsal-git/GreedyGameAssignment/static/css/main.a01da486.css.map",
+    "main.8c7832cd.js.map": "/vatsal-git/GreedyGameAssignment/static/js/main.8c7832cd.js.map",
+    "787.28cb0dcd.chunk.js.map": "/vatsal-git/GreedyGameAssignment/static/js/787.28cb0dcd.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.a01da486.css",
+    "static/js/main.8c7832cd.js"
+  ]
+}
