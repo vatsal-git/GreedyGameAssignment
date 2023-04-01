@@ -1,17 +1,17 @@
-import { configureStore } from "@reduxjs/toolkit";
-import { setupListeners } from "@reduxjs/toolkit/query";
-import { analyticsTableDataApi } from "../services/analyticsTableDataService";
-import { appNamesApi } from "./../services/appNamesService";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
 
-export const store = configureStore({
-  reducer: {
-    [analyticsTableDataApi.reducerPath]: analyticsTableDataApi.reducer,
-    [appNamesApi.reducerPath]: appNamesApi.reducer,
-  },
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware()
-      .concat(analyticsTableDataApi.middleware)
-      .concat(appNamesApi.middleware),
+import apiInstance from "./api/createApiInstance";
+import modal from "./modal";
+
+const rootReducer = combineReducers({
+  [apiInstance.reducerPath]: apiInstance.reducer,
+  modal,
 });
 
-setupListeners(store.dispatch);
+const reducer = (state, action) => rootReducer(state, action);
+
+export const store = configureStore({
+  reducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(apiInstance.middleware),
+});

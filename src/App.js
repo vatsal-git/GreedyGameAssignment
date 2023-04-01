@@ -1,5 +1,7 @@
+import React from "react";
+
 import { createBrowserRouter, Link, RouterProvider } from "react-router-dom";
-import "./App.css";
+
 import Analytics from "./pages/analytics";
 
 const router = createBrowserRouter([

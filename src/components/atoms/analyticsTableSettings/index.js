@@ -1,7 +1,7 @@
-import { useState } from "react";
-import CustomButton from "../customButton";
+import React, { useState } from "react";
+
+import Button from "../../common/button";
 import "./index.css";
-import { getAllSearchParams } from "../../../utils/commonFunctions";
 
 function AnalyticsTableSettings({
   tableColumns,
@@ -11,16 +11,14 @@ function AnalyticsTableSettings({
   setSearchParams,
 }) {
   const [dragItem, setDragItem] = useState(null);
-  const [newTableColumns, setNewTableColumns] = useState(tableColumns);
-  const [newSearchParams, setNewSearchParams] = useState(searchParams);
+  const [newTableColumns, setNewTableColumns] = useState(tableColumns); // for actions only on 'Apply" click
+  const [newSearchParams, setNewSearchParams] = useState(searchParams); // for actions only on 'Apply" click
 
   const onCardClick = (tableColumn) => {
     if (tableColumn.key === "app_id" || tableColumn.key === "date") return; // don't make app_id and date columns invisible
-
     if (!tableColumn.isVisible) newSearchParams.delete(tableColumn.key);
     else newSearchParams.set(tableColumn.key, !tableColumn.isVisible);
     setNewSearchParams(newSearchParams);
-
     setNewTableColumns(
       newTableColumns.map((column) => {
         if (column.key === tableColumn.key)
@@ -32,6 +30,9 @@ function AnalyticsTableSettings({
       })
     );
   };
+
+  const onCardMouseDown = (e, tableColumn) =>
+    setDragItem({ colData: tableColumn, event: e });
 
   const onCardMouseMove = (e) => {
     if (dragItem) {
@@ -55,56 +56,56 @@ function AnalyticsTableSettings({
     setDragItem(null);
   };
 
+  const onAnalyticsTableSettingsMouseLeave = () => {
+    if (dragItem) {
+      dragItem.event.target.style.position = "static";
+      setDragItem(null);
+    }
+  };
+
+  const onCloseClick = () => {
+    setIsSettingsVisible(false);
+  };
+
+  const onApplyClick = () => {
+    setTableColumns(newTableColumns);
+    setIsSettingsVisible(false);
+    setSearchParams(newSearchParams);
+  };
+
   return (
     <div
-      className="analyticsTableSettings"
-      onMouseLeave={() => {
-        if (dragItem) {
-          dragItem.event.target.style.position = "static";
-          setDragItem(null);
-        }
-      }}
+      className="analytics-table-settings"
+      onMouseLeave={onAnalyticsTableSettingsMouseLeave}
     >
       <h3>Dimensions and Metrics</h3>
-      <div className="cardsWrapper">
-        {newTableColumns.map((tableColumn, i) => {
-          return (
-            <div key={i} style={{ width: "200px" }}>
-              <div
-                key={tableColumn.key}
-                className={`card ${
-                  newTableColumns[i].isVisible
-                    ? "cardVisible"
-                    : "cardNotVisible"
-                }`}
-                onClick={() => onCardClick(tableColumn)}
-                onMouseDown={(e) =>
-                  setDragItem({ colData: tableColumn, event: e })
-                }
-                onMouseMove={onCardMouseMove}
-                onMouseUp={() => onCardMouseUp(tableColumn)}
-              >
-                {tableColumn.title}
-              </div>
+      <div className="analytics-table-settings-cards-wrapper">
+        {newTableColumns.map((tableColumn, i) => (
+          <div key={i} style={{ width: "200px" }}>
+            <div
+              key={tableColumn.key}
+              className={`analytics-table-settings-card ${
+                tableColumn.isVisible
+                  ? "analytics-table-settings-card-visible"
+                  : "analytics-table-settings-card-not-visible"
+              }`}
+              onClick={() => onCardClick(tableColumn)}
+              onMouseDown={(e) => onCardMouseDown(e, tableColumn)}
+              onMouseMove={onCardMouseMove}
+              onMouseUp={() => onCardMouseUp(tableColumn)}
+            >
+              {tableColumn.title}
             </div>
-          );
-        })}
+          </div>
+        ))}
       </div>
-      <div className="actionButtonWrapper">
-        <CustomButton
-          content="Close"
-          style={{ color: "#136FED" }}
-          onClick={() => setIsSettingsVisible(false)}
-        />
-        <CustomButton
-          content="Apply"
-          style={{ backgroundColor: "#136FED", color: "#ffffff" }}
-          onClick={() => {
-            setTableColumns(newTableColumns);
-            setIsSettingsVisible(false);
-            setSearchParams(newSearchParams);
-          }}
-        />
+      <div className="analytics-table-settings-action-btn-wrapper">
+        <Button type="secondary" onClick={onCloseClick}>
+          Close
+        </Button>
+        <Button type="primary" onClick={onApplyClick}>
+          Apply changes
+        </Button>
       </div>
     </div>
   );

@@ -1,15 +1,9 @@
+import React from "react";
 import "./index.css";
 
 function Loader({ wrapperStyle, loaderStyle }) {
   return (
-    <div
-      style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        ...wrapperStyle,
-      }}
-    >
+    <div className="loader-wrapper" style={wrapperStyle}>
       <div className="loader" style={loaderStyle} />
     </div>
   );

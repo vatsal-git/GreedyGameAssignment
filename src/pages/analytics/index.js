@@ -1,20 +1,21 @@
-import { useState } from "react";
+import React, { useState } from "react";
+
 import { useSearchParams } from "react-router-dom";
-import { useGetAnalyticsTableDataQuery } from "../../services/analyticsTableDataService";
-import { useGetAppNamesQuery } from "../../services/appNamesService";
-import AnalyticsHeader from "../../components/molecules/analyticsHeader";
-import AnalyticsTable from "../../components/molecules/analyticsTable";
-import "./index.css";
+
+import AnalyticsBody from "../../components/molecules/analyticsBody";
+import AnalyticsHead from "../../components/molecules/analyticsHead";
+import { useGetAnalyticsTableDataQuery } from "../../store/api/analyticsTableData";
+import { useGetAppNamesQuery } from "../../store/api/appNames";
 import {
   DEFAULT_DATE_RANGE,
   DEFAULT_TABLE_COLUMNS,
 } from "../../utils/DefaultVariables";
-import { sortByKey } from "../../utils/commonFunctions";
+import "./index.css";
 
 function Analytics() {
-  const [searchParams, setSearchParams] = useSearchParams();
   const [tableColumns, setTableColumns] = useState(DEFAULT_TABLE_COLUMNS);
   const [dateRange, setDateRange] = useState(DEFAULT_DATE_RANGE);
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const { data: analyticsTableData, isLoading: isAnalyticsTableDataLoading } =
     useGetAnalyticsTableDataQuery({
@@ -26,20 +27,19 @@ function Analytics() {
 
   return (
     <div className="analytics">
-      <AnalyticsHeader
+      <AnalyticsHead
         dateRange={dateRange}
         setDateRange={setDateRange}
-        tableColumns={tableColumns.sort((a, b) => sortByKey(a, b, "pos"))}
+        tableColumns={tableColumns}
         setTableColumns={setTableColumns}
         searchParams={searchParams}
         setSearchParams={setSearchParams}
       />
-      <AnalyticsTable
-        isLoading={isAnalyticsTableDataLoading}
-        tableData={analyticsTableData?.data}
-        tableColumns={tableColumns.sort((a, b) => sortByKey(a, b, "pos"))}
-        appNames={appNames}
-        isAppNamesLoading={isAppNamesLoading}
+      <AnalyticsBody
+        tableColumns={tableColumns}
+        isLoading={isAnalyticsTableDataLoading || isAppNamesLoading}
+        tableData={!isAnalyticsTableDataLoading && analyticsTableData.data}
+        appNames={!isAppNamesLoading && appNames}
       />
     </div>
   );

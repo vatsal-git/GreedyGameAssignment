@@ -5,5 +5,5 @@
     display: flex;
     flex-direction: column;
     gap: 1em;
-    border-left: 3em solid #192F48;
+    border-left: 3em solid var(--dark-primary-color);
 }
