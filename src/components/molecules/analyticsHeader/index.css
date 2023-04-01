@@ -1,0 +1,12 @@
+.analyticsHeader h2 {
+    font-size: 24px;
+    color: #1d1a1a;
+    margin-bottom: 1.5em;
+}
+
+.analyticsHeader>.actionButtonWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1em;
+}

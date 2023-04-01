@@ -1,0 +1,9 @@
+.analytics {
+    height: 100%;
+    min-height: 100vh;
+    padding: 2em;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    border-left: 3em solid #192F48;
+}

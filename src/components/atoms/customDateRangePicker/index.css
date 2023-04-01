@@ -1,0 +1,32 @@
+.customDateRangePicker .react-daterange-picker__wrapper {
+    border-radius: 4px;
+    border: 1px solid #70707038;
+    padding: 0.5em 1em;
+    cursor: pointer;
+}
+
+.customDateRangePicker .react-daterange-picker__inputGroup,
+.customDateRangePicker .react-daterange-picker__range-divider {
+    display: none;
+}
+
+.customDateRangePicker .react-daterange-picker__calendar-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+
+.customDateRangePicker .react-calendar {
+    border-radius: 4px;
+    border: 1px solid #70707038;
+}
+
+.customDateRangePickerIcon {
+    display: flex;
+    align-items: end;
+    justify-content: center;
+    gap: 1em;
+    font-size: 15px;
+    font-weight: bold;
+}
