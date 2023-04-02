@@ -1,4 +1,4 @@
-.modalWrapper {
+.modal-wrapper {
     position: fixed;
     top: 0;
     left: 0;
@@ -9,6 +9,7 @@
 }
 
 .modal {
+    min-width: 300px;
     z-index: 99;
     display: flex;
     align-items: center;
@@ -18,10 +19,30 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    border: 1px solid #EAEAEA;
+    border: 1px solid var(--light-secondary-color);
     border-radius: 7px;
-    color: black;
     padding: 1em;
     gap: 1em;
-    background-color: white;
+    background-color: #fff;
+}
+
+.modal-title {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1em;
+    width: 100%;
+}
+
+.modal-content {
+    width: 100%;
+    padding: 1em 0;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 1em;
+    width: 100%;
 }

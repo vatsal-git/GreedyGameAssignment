@@ -1,7 +1,7 @@
 import React, { useState } from "react";
+import "./index.css";
 
 import Button from "../../common/button";
-import "./index.css";
 
 function AnalyticsTableSettings({
   tableColumns,
@@ -11,8 +11,8 @@ function AnalyticsTableSettings({
   setSearchParams,
 }) {
   const [dragItem, setDragItem] = useState(null);
-  const [newTableColumns, setNewTableColumns] = useState(tableColumns); // for actions only on 'Apply" click
-  const [newSearchParams, setNewSearchParams] = useState(searchParams); // for actions only on 'Apply" click
+  const [newTableColumns, setNewTableColumns] = useState(tableColumns); // for actions only on 'Apply' click
+  const [newSearchParams, setNewSearchParams] = useState(searchParams); // for actions only on 'Apply' click
 
   const onCardClick = (tableColumn) => {
     if (tableColumn.key === "app_id" || tableColumn.key === "date") return; // don't make app_id and date columns invisible
@@ -45,41 +45,44 @@ function AnalyticsTableSettings({
   };
 
   const onCardMouseUp = (tableColumn) => {
-    let new1 = { ...tableColumn, pos: dragItem.colData.pos };
-    let new2 = { ...dragItem.colData, pos: tableColumn.pos };
-    let tmp = [...newTableColumns];
-    tmp[dragItem.colData.pos] = new1;
-    tmp[tableColumn.pos] = new2;
-    setNewTableColumns(tmp);
-    dragItem.event.target.style.position = "static";
-    dragItem.event.target.style.zIndex = 0;
-    setDragItem(null);
-  };
-
-  const onAnalyticsTableSettingsMouseLeave = () => {
     if (dragItem) {
-      dragItem.event.target.style.position = "static";
-      setDragItem(null);
+      let updatedTableColumns = [...newTableColumns];
+      let draggedItem = { ...dragItem.colData, pos: tableColumn.pos };
+      let itemDraggedOn = { ...tableColumn, pos: dragItem.colData.pos };
+      updatedTableColumns[tableColumn.pos] = draggedItem;
+      updatedTableColumns[dragItem.colData.pos] = itemDraggedOn;
+      setNewTableColumns(updatedTableColumns);
+      clearDragItem();
     }
   };
 
   const onCloseClick = () => {
+    clearDragItem();
     setIsSettingsVisible(false);
   };
 
   const onApplyClick = () => {
+    clearDragItem();
     setTableColumns(newTableColumns);
     setIsSettingsVisible(false);
     setSearchParams(newSearchParams);
   };
 
+  const clearDragItem = () => {
+    if (dragItem) {
+      dragItem.event.target.style.position = "static";
+      dragItem.event.target.style.zIndex = 0;
+      setDragItem(null);
+    }
+  };
+
   return (
-    <div
-      className="analytics-table-settings"
-      onMouseLeave={onAnalyticsTableSettingsMouseLeave}
-    >
+    <div className="analytics-table-settings">
       <h3>Dimensions and Metrics</h3>
-      <div className="analytics-table-settings-cards-wrapper">
+      <div
+        className="analytics-table-settings-cards-wrapper"
+        onMouseLeave={clearDragItem}
+      >
         {newTableColumns.map((tableColumn, i) => (
           <div key={i} style={{ width: "200px" }}>
             <div

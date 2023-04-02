@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "./index.css";
 
 import moment from "moment";
 
@@ -6,7 +7,6 @@ import settingsIcon from "../../../assets/images/settings-icon.png";
 import AnalyticsTableSettings from "../../atoms/analyticsTableSettings";
 import Button from "../../common/button";
 import CustomDateRangePicker from "../../common/dateRangePicker";
-import "./index.css";
 
 function AnalyticsHead({
   dateRange,

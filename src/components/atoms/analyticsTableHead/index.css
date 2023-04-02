@@ -1,5 +1,11 @@
 .analytics-table-head-tr {
     font-size: 18px;
     font-weight: bold;
-    color: var(--secondary-color);
+}
+
+.analytics-table-head-filter-icon {
+    cursor: pointer;
+    width: 18px;
+    float: left;
+    margin-right: 5px;
 }

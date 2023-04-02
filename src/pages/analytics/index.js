@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "./index.css";
 
 import { useSearchParams } from "react-router-dom";
 
@@ -9,8 +10,7 @@ import { useGetAppNamesQuery } from "../../store/api/appNames";
 import {
   DEFAULT_DATE_RANGE,
   DEFAULT_TABLE_COLUMNS,
-} from "../../utils/DefaultVariables";
-import "./index.css";
+} from "../../utils/defaultVariables";
 
 function Analytics() {
   const [tableColumns, setTableColumns] = useState(DEFAULT_TABLE_COLUMNS);

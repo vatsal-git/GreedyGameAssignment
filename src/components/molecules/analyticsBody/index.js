@@ -1,34 +1,37 @@
-import React from "react";
-
-import AnalyticsTableHead from "../../atoms/analyticsTableHead";
-import AnalyticsTableRow from "../../atoms/analyticsTableRow";
-import UniqueAnalyticsTableRow from "../../atoms/analyticsTableRow/uniqueAnalyticsTableRow";
-import Loader from "../../common/loader";
-import NoDataDisplay from "../../common/noDataDisplay";
+import React, { useEffect, useState } from "react";
 import "./index.css";
 
+import AnalyticsTableBody from "../../atoms/analyticsTableBody";
+import AnalyticsTableHead from "../../atoms/analyticsTableHead";
+import Loader from "../../common/loader";
+import NoDataDisplay from "../../common/noDataDisplay";
+
 function AnalyticsBody({ isLoading, tableData, tableColumns, appNames }) {
-  const showTable = !isLoading && tableData && tableData.length > 0;
-  const showNoDataDisplay = !isLoading && tableData && tableData.length === 0;
+  const [filteredData, setFilteredData] = useState(tableData); // table data to apply filters
+
+  const showTable = !isLoading && filteredData && filteredData.length > 0;
+  const showNoDataDisplay =
+    !isLoading && filteredData && filteredData.length === 0;
+
+  useEffect(() => {
+    if (!isLoading) setFilteredData(tableData);
+  }, [isLoading, tableData]);
 
   return (
     <div className="analytics-body">
       {isLoading && <Loader wrapperStyle={{ padding: "4em" }} />}
       {showTable && (
         <table className="analytics-table">
-          <AnalyticsTableHead tableColumns={tableColumns} />
-          <UniqueAnalyticsTableRow
-            tableData={tableData}
+          <AnalyticsTableHead
+            tableData={filteredData}
+            setTableData={setFilteredData}
             tableColumns={tableColumns}
           />
-          {tableData.map((row, i) => (
-            <AnalyticsTableRow
-              key={i + row.date}
-              row={row}
-              tableColumns={tableColumns}
-              appNames={appNames}
-            />
-          ))}
+          <AnalyticsTableBody
+            tableData={filteredData}
+            tableColumns={tableColumns}
+            appNames={appNames}
+          />
         </table>
       )}
       {showNoDataDisplay && (

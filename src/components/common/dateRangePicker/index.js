@@ -1,10 +1,10 @@
 import React from "react";
+import "./index.css";
 
 import DateRangePicker from "@wojtekmaj/react-daterange-picker";
 import moment from "moment";
 
 import calenderIcon from "../../../assets/images/calendar-icon.png";
-import "./index.css";
 
 const getCalenderContent = (value) => {
   const startDate = moment(value[0]).format("MMM DD");

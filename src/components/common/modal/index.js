@@ -1,9 +1,10 @@
 import React from "react";
+import "./index.css";
 
 import { useDispatch, useSelector } from "react-redux";
 
+import Button from "./../button";
 import { closeModal, modalSelector } from "../../../store/modal";
-import "./index.css";
 
 function Modal({ title, content, actions, type }) {
   const modal = useSelector(modalSelector);
@@ -11,16 +12,18 @@ function Modal({ title, content, actions, type }) {
 
   return (
     <div
-      className="modalWrapper"
+      className="modal-wrapper"
       style={{
         display: modal.type === type && modal.isModalOpen ? "block" : "none",
       }}
-      onClick={() => dispatch(closeModal())}
     >
       <div className="modal">
-        <div className="modalTitle">{title}</div>
-        <div className="modalContent">{content}</div>
-        <div className="modalActions">{actions}</div>
+        <div className="modal-title">{title}</div>
+        <div className="modal-content">{content}</div>
+        <div className="modal-actions">
+          <Button type="secondary" onClick={() => dispatch(closeModal())}>Close</Button>
+          {actions}
+        </div>
       </div>
     </div>
   );
