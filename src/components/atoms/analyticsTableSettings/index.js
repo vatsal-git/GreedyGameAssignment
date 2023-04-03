@@ -17,7 +17,7 @@ function AnalyticsTableSettings({
   const onCardClick = (tableColumn) => {
     if (tableColumn.key === "app_id" || tableColumn.key === "date") return; // don't make app_id and date columns invisible
     if (!tableColumn.isVisible) newSearchParams.delete(tableColumn.key);
-    else newSearchParams.set(tableColumn.key, !tableColumn.isVisible);
+    else newSearchParams.set(tableColumn.key + "Col", !tableColumn.isVisible);
     setNewSearchParams(newSearchParams);
     setNewTableColumns(
       newTableColumns.map((column) => {

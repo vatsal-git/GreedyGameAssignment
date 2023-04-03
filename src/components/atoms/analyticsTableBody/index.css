@@ -5,3 +5,14 @@
 .analytics-table-unique-value-row {
     font-size: 28px;
 }
+
+@media screen and (max-width: 768px) {
+    .analytics-table-body-tr {
+        font-size: 14px;
+    }
+
+    .analytics-table-unique-value-row {
+        font-size: 18px;
+    }
+
+}

@@ -45,7 +45,6 @@
 }
 
 .analytics-table-settings-card-not-visible:hover {
-    border: 1px solid var(--light-secondary-color);
     cursor: grab;
 }
 

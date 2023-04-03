@@ -8,5 +8,18 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 1em;
+    margin-bottom: 1em
+}
+
+@media screen and (max-width: 768px) {
+    .analytics-head-title {
+        margin-bottom: .5em;
+    }
+
+    .analytics-head-action-btn-wrapper {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: .5em;
+        margin-bottom: .5em;
+    }
 }

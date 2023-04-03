@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Button from "./../button";
 import { closeModal, modalSelector } from "../../../store/modal";
 
-function Modal({ title, content, actions, type }) {
+function Modal({ title, actions, type, ...props }) {
   const modal = useSelector(modalSelector);
   const dispatch = useDispatch();
 
@@ -19,9 +19,11 @@ function Modal({ title, content, actions, type }) {
     >
       <div className="modal">
         <div className="modal-title">{title}</div>
-        <div className="modal-content">{content}</div>
+        <div className="modal-content">{props.children}</div>
         <div className="modal-actions">
-          <Button type="secondary" onClick={() => dispatch(closeModal())}>Close</Button>
+          <Button type="secondary" onClick={() => dispatch(closeModal())}>
+            Close
+          </Button>
           {actions}
         </div>
       </div>

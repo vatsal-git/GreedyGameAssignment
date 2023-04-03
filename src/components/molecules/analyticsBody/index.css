@@ -10,3 +10,16 @@
     max-width: 200px;
     border-bottom: 1px solid var(--light-secondary-color);
 }
+
+@media screen and (max-width: 768px) {
+    .analytics-table {
+        display: block;
+        width: calc(100vw - 1.5em);
+        overflow-x: auto;
+        border: 1px solid var(--light-secondary-color);
+    }
+
+    .analytics-table td {
+        width: 80px;
+    }
+}

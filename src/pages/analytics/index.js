@@ -6,7 +6,7 @@ import { useSearchParams } from "react-router-dom";
 import AnalyticsBody from "../../components/molecules/analyticsBody";
 import AnalyticsHead from "../../components/molecules/analyticsHead";
 import { useGetAnalyticsTableDataQuery } from "../../store/api/analyticsTableData";
-import { useGetAppNamesQuery } from "../../store/api/appNames";
+import { useGetAppsDataQuery } from "../../store/api/appsData";
 import {
   DEFAULT_DATE_RANGE,
   DEFAULT_TABLE_COLUMNS,
@@ -22,8 +22,8 @@ function Analytics() {
       startDate: dateRange[0],
       endDate: dateRange[1],
     });
-  const { data: appNames, isLoading: isAppNamesLoading } =
-    useGetAppNamesQuery();
+  const { data: appsData, isLoading: isAppsDataLoading } =
+    useGetAppsDataQuery();
 
   return (
     <div className="analytics">
@@ -37,9 +37,11 @@ function Analytics() {
       />
       <AnalyticsBody
         tableColumns={tableColumns}
-        isLoading={isAnalyticsTableDataLoading || isAppNamesLoading}
-        tableData={!isAnalyticsTableDataLoading && analyticsTableData.data}
-        appNames={!isAppNamesLoading && appNames}
+        isLoading={isAnalyticsTableDataLoading || isAppsDataLoading}
+        tableData={analyticsTableData?.data}
+        appsData={appsData?.data}
+        searchParams={searchParams}
+        setSearchParams={setSearchParams}
       />
     </div>
   );
